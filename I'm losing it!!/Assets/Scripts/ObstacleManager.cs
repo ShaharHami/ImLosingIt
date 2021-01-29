@@ -20,6 +20,7 @@ public class ObstacleManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ObstacleLoop());
+        canInteract = true;
     }
 
     private IEnumerator ObstacleLoop()
@@ -39,12 +40,12 @@ public class ObstacleManager : MonoBehaviour
         }
     }
 
-    public List<Obstacle> GetObstaclesByState(Obstacle.State state)
+    private List<Obstacle> GetObstaclesByState(Obstacle.State state)
     {
         return obstacles.Where(obstacle => obstacle.state == state).ToList();
     }
     
-    public List<Obstacle> GetObstaclesByNotState(Obstacle.State state)
+    private List<Obstacle> GetObstaclesByNotState(Obstacle.State state)
     {
         return obstacles.Where(obstacle => obstacle.state != state).ToList();
     }
@@ -60,7 +61,7 @@ public class ObstacleManager : MonoBehaviour
             }
             else if (GetObstaclesByNotState(Obstacle.State.Idle).Count > 0)
             {
-                currentCoolDown = GetClosestObstacle(GetObstaclesByNotState(Obstacle.State.Idle)); 
+                currentCoolDown = GetClosestObstacle(GetObstaclesByNotState(Obstacle.State.Idle));
             }
         }
         else if (Input.GetKeyUp(KeyCode.E))
@@ -79,7 +80,7 @@ public class ObstacleManager : MonoBehaviour
         player.ErodeSanity(GetObstaclesByNotState(Obstacle.State.Idle).Count);
     }
 
-    public Obstacle GetClosestObstacle(List<Obstacle> filteredObstacles)
+    private Obstacle GetClosestObstacle(List<Obstacle> filteredObstacles)
     {
         Obstacle closest = null;
         foreach (var obstacle in filteredObstacles)
