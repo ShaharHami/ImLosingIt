@@ -145,6 +145,11 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1584281281510247551}
+    - target: {fileID: 7638482917634557920, guid: 0c4d0e0d71091a5479e4e0c8ddc30859,
+        type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7638482917634557921, guid: 0c4d0e0d71091a5479e4e0c8ddc30859,
         type: 3}
       propertyPath: m_RootOrder
@@ -227,7 +232,7 @@ PrefabInstance:
     - target: {fileID: 5363942129760389799, guid: 04144562a6014e048b80304397ef7bd7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5363942129760389799, guid: 04144562a6014e048b80304397ef7bd7,
         type: 3}
@@ -268,6 +273,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363942129760389816, guid: 04144562a6014e048b80304397ef7bd7,
+        type: 3}
+      propertyPath: orthographic size
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5363942129760389818, guid: 04144562a6014e048b80304397ef7bd7,
         type: 3}
