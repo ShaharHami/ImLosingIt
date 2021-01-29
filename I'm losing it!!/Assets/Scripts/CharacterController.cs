@@ -5,10 +5,7 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    // ========= MOVEMENT =================
-    public float speed = 4;
-    
-    // ========= ACTIONS =================
+ // ========= ACTIONS =================
     public KeyCode actionKey1 = KeyCode.U;
     public KeyCode actionKey2 = KeyCode.I;
     public KeyCode actionKey3 = KeyCode.O;
@@ -28,27 +25,28 @@ public class CharacterController : MonoBehaviour
     public float MaxSanity = 5;
     public float Sanity { get; private set; }
     
-    // =========== MOVEMENT ==============
-    Rigidbody2D rigidbody2d;
-    Vector2 currentInput;
-    
-    // ==== ANIMATION =====
-    Animator animator;
-    Vector2 lookDirection = new Vector2(1, 0);    
+  
     
     // ================= SOUNDS =======================
     AudioSource audioSource;
     
+    private NPCController npcController;
+    private CharacterMover characterMover;
+
+    private void Awake()
+    {
+        npcController = GetComponent<NPCController>();
+        characterMover = GetComponent<CharacterMover>();
+    }
+
     void Start()
     {
-        // =========== MOVEMENT ==============
-        rigidbody2d = GetComponent<Rigidbody2D>();
+
                 
         // ======== HEALTH ==========
         Sanity = MaxSanity;
         
-        // ==== ANIMATION =====
-        animator = GetComponent<Animator>();
+
         
         // ==== AUDIO =====
         audioSource = GetComponent<AudioSource>();
@@ -61,21 +59,9 @@ public class CharacterController : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
                 
         Vector2 move = new Vector2(horizontal, vertical);
-        
-        if(!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
-        {
-            lookDirection.Set(move.x, move.y);
-            lookDirection.Normalize();
-        }
-
-        currentInput = move;
+        characterMover.Move(move);
 
 
-        // ============== ANIMATION =======================
-
-        animator.SetFloat("Look X", lookDirection.x);
-        animator.SetFloat("Look Y", lookDirection.y);
-        animator.SetFloat("Speed", move.magnitude);
 
         // ============== ACTIONS ======================
 
@@ -103,17 +89,27 @@ public class CharacterController : MonoBehaviour
             }
         }
         */
+        
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            if (npcController.allowDebug)
+            {
+                BecomeUnplayable();
+                npcController.SetState(NPCState.Moving);
+            }
+        }
 
     }
 
-    void FixedUpdate()
+
+    
+    public void BecomeUnplayable()
     {
-        Vector2 position = rigidbody2d.position;
-        
-        position = position + currentInput * speed * Time.deltaTime;
-        
-        rigidbody2d.MovePosition(position);
+        this.enabled = false;
+        npcController.enabled = true;
     }
+    
+
 
     protected virtual void DoAction1()
     {
