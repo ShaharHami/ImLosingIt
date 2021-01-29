@@ -61,6 +61,7 @@
      <Compile Include="Assets\2D tutorial\Scripts\UI\UIAmmoCount.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\NonPlayerCharacter.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\HealthCollectible.cs" />
+     <Compile Include="Assets\Scripts\CharacterController.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\UI\UIDialogueBox.cs" />
      <Compile Include="Assets\Scripts\Baby.cs" />
      <Compile Include="Assets\Scripts\ObstacleManager.cs" />
