@@ -361,7 +361,7 @@ PrefabInstance:
     - target: {fileID: 5363942129760389799, guid: 04144562a6014e048b80304397ef7bd7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 5363942129760389799, guid: 04144562a6014e048b80304397ef7bd7,
         type: 3}
@@ -2462,6 +2462,8 @@ GameObject:
   - component: {fileID: 7835389011197179239}
   - component: {fileID: 1584281281510247491}
   - component: {fileID: 757271046332166821}
+  - component: {fileID: 1584281281510247493}
+  - component: {fileID: 1584281281510247492}
   m_Layer: 8
   m_Name: Ruby
   m_TagString: Untagged
@@ -2481,7 +2483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08656ca638515ca42b802098008b54fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
   actionKey1: 117
   actionKey2: 105
   actionKey3: 111
@@ -2506,6 +2507,38 @@ MonoBehaviour:
   baseErosionRate: 0.1
   sanityBar: {fileID: 828214205}
   sanityLevel: {fileID: 724978278}
+--- !u!114 &1584281281510247492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584281281510247489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e3aa5ade677a34abd7a53f68b7c4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointsOfInterest: []
+  currentPointIdx: -1
+  allowDebug: 0
+--- !u!114 &1584281281510247493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584281281510247489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82c5b73b871a4eb49ad0fe2c400407d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
+  rigidbody2d: {fileID: 0}
+  currentInput: {x: 0, y: 0}
+  animator: {fileID: 0}
+  lookDirection: {x: 1, y: 0}
 --- !u!50 &1584281281510247549
 Rigidbody2D:
   serializedVersion: 4
