@@ -3,7 +3,8 @@
 /.idea
 /Logs
 
- 
+*/*Assembly-CSharp.csproj
+*/*Assembly-CSharp-firstpass.csproj
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -12,6 +13,7 @@ obj/
 *.svd
 *.userprefs
 */*.csproj
+/*.csproj
 *.pidb
 *.suo
 /*.sln
