@@ -52,22 +52,23 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CharacterController.cs" />
+     <Compile Include="Assets\Scripts\ObstacleManager.cs" />
+     <Compile Include="Assets\Scripts\Baby.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\Projectile.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\UI\UIQuestDisplay.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\DamageZone.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\RubyController.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\UI\UIHealthBar.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\UI\UIAmmoCount.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\NonPlayerCharacter.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\HealthCollectible.cs" />
-     <Compile Include="Assets\Scripts\CharacterController.cs" />
      <Compile Include="Assets\2D tutorial\Scripts\UI\UIDialogueBox.cs" />
-     <Compile Include="Assets\Scripts\Baby.cs" />
-     <Compile Include="Assets\Scripts\ObstacleManager.cs" />
-     <Compile Include="Assets\Scripts\Dog.cs" />
      <Compile Include="Assets\Scripts\Obstacle.cs" />
-     <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\Dog.cs" />
+     <Compile Include="Assets\Scripts\Getaway.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />

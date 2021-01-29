@@ -39,12 +39,12 @@ public class ObstacleManager : MonoBehaviour
         }
     }
 
-    private List<Obstacle> GetObstaclesByState(Obstacle.State state)
+    public List<Obstacle> GetObstaclesByState(Obstacle.State state)
     {
         return obstacles.Where(obstacle => obstacle.state == state).ToList();
     }
     
-    private List<Obstacle> GetObstaclesByNotState(Obstacle.State state)
+    public List<Obstacle> GetObstaclesByNotState(Obstacle.State state)
     {
         return obstacles.Where(obstacle => obstacle.state != state).ToList();
     }
@@ -76,9 +76,10 @@ public class ObstacleManager : MonoBehaviour
                 closestObstacle.ShowPrompt();
             }
         }
+        player.ErodeSanity(GetObstaclesByNotState(Obstacle.State.Idle).Count);
     }
 
-    private Obstacle GetClosestObstacle(List<Obstacle> filteredObstacles)
+    public Obstacle GetClosestObstacle(List<Obstacle> filteredObstacles)
     {
         Obstacle closest = null;
         foreach (var obstacle in filteredObstacles)

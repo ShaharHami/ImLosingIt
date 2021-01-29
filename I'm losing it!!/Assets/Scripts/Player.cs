@@ -1,18 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float sanity;
+    public float baseErosionRate;
+    public Image sanityBar;
+    public TextMeshProUGUI sanityLevel;
+
+    public void ErodeSanity(int obstacles)
     {
-        
+        sanity -= obstacles * baseErosionRate * Time.deltaTime;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void IncreaseSanity(float rate)
     {
-        
+        if (sanity <= 100)
+        {
+            sanity += rate * Time.deltaTime;
+        }
+    }
+
+    private void Update()
+    {
+        sanityBar.fillAmount = sanity / 100;
+        sanityLevel.text = $"Sanity {sanity:F1}/100";
     }
 }
