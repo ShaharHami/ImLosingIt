@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     public float baseErosionRate;
     public Image sanityBar;
     public TextMeshProUGUI sanityLevel;
+    public SpriteRenderer faceRenderer;
+    public Sprite[] moods;
 
     public void ErodeSanity(int obstacles)
     {
@@ -27,5 +29,16 @@ public class Player : MonoBehaviour
     {
         sanityBar.fillAmount = sanity / 100;
         sanityLevel.text = $"Sanity {sanity:F1}/100";
+    }
+
+    public void changeMood(int moodIdx)
+    {
+        if (moodIdx < 0 || moodIdx >= moods.Length)
+            faceRenderer.gameObject.SetActive(false);
+        else
+        {
+            faceRenderer.gameObject.SetActive(true);
+            faceRenderer.sprite = moods[moodIdx];
+        }
     }
 }
