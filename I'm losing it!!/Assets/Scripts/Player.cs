@@ -15,10 +15,13 @@ public class Player : MonoBehaviour
     public SpriteRenderer faceRenderer;
     public Sprite[] moods;
     public FMOD fmod;
+    public RuntimeAnimatorController dadController, momController;
+    public Animator animator;
     private int stressLevel = 0;
 
     private void Awake()
     {
+        animator.runtimeAnimatorController = PersistantData.Instance.brando ? dadController : momController;
         SetBGM();
     }
 

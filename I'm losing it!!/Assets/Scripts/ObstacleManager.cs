@@ -20,8 +20,14 @@ public class ObstacleManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(ObstacleLoop());
+        StartCoroutine(DelayedStart());
         canInteract = true;
+    }
+
+    private IEnumerator DelayedStart()
+    {
+        yield return new WaitForSeconds(15);
+        StartCoroutine(ObstacleLoop());
     }
 
     private IEnumerator ObstacleLoop()
@@ -51,7 +57,7 @@ public class ObstacleManager : MonoBehaviour
         return obstacles.Where(obstacle => obstacle.state != state).ToList();
     }
 
-    private List<Obstacle> GetActiveObstacles()
+    public List<Obstacle> GetActiveObstacles()
     {
         return obstacles.Where(obstacle => obstacle.state == Obstacle.State.Annoying || obstacle.state == Obstacle.State.Calming).ToList();
     }

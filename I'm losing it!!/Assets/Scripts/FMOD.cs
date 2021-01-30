@@ -29,32 +29,6 @@ public class FMOD : MonoBehaviour
 
     private void Update()
     {
-        // previousStressLevel = currentStressLevel;
-        // if (player.sanity > 0 && player.sanity < 25)
-        // {
-        //     currentStressLevel = 3;
-        // }
-        // else if (player.sanity >= 25 && player.sanity < 50)
-        // {
-        //     currentStressLevel = 2;
-        // }
-        // else if (player.sanity >= 50 && player.sanity < 95)
-        // {
-        //     currentStressLevel = 1;
-        // }
-        // else if (player.sanity >= 95)
-        // {
-        //     currentStressLevel = 0;
-        // }
-        //
-        // if (currentStressLevel < previousStressLevel)
-        // {
-        //     StressDown();
-        // }
-        // else if (currentStressLevel > previousStressLevel)
-        // {
-        //     StressUp();
-        // }
         if (Input.GetKeyDown(KeyCode.Z))
             StressDown();
         if (Input.GetKeyDown(KeyCode.Q))
@@ -103,7 +77,7 @@ public class FMOD : MonoBehaviour
         {
             ambSource1.clip = ambiances[level];
             ambSource1.time = ambSource0.time;
-            ambSource1.DOFade(1, crossFadeTime);
+            ambSource1.DOFade(0.7f, crossFadeTime);
             ambSource0.DOFade(0, crossFadeTime).OnComplete(ambSource0.Stop);
             ambSource1.Play();
         }
@@ -111,7 +85,7 @@ public class FMOD : MonoBehaviour
         {
             ambSource0.clip = ambiances[level];
             ambSource0.time = ambSource1.time;
-            ambSource0.DOFade(1, crossFadeTime);
+            ambSource0.DOFade(0.7f, crossFadeTime);
             ambSource1.DOFade(0, crossFadeTime).OnComplete(ambSource1.Stop);
             ambSource0.Play();
         }
