@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 713d55197cac0d948a4d2c2dd20afdbc
+guid: 9c25ff4d8ee199c49a200d64396270bd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6142664996167631637
-    second: KITCHEN-01_0
+      213: 9174746367273291072
+    second: LIVING + WORK ROOM-02_0
   - first:
-      213: -5889068077488008550
-    second: KITCHEN-01_1
+      213: -8454210012939796493
+    second: LIVING + WORK ROOM-02_1
+  - first:
+      213: -7991259800182301651
+    second: LIVING + WORK ROOM-02_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KITCHEN-01_0
+      name: LIVING + WORK ROOM-02_0
       rect:
         serializedVersion: 2
-        x: 164
-        y: 371
-        width: 971
-        height: 235
+        x: 202
+        y: 500
+        width: 846
+        height: 373
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +114,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: becb3313bbed0caa0800000000000000
-      internalID: -6142664996167631637
+      spriteID: 04d41ad063f335f70800000000000000
+      internalID: 9174746367273291072
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KITCHEN-01_1
+      name: LIVING + WORK ROOM-02_1
       rect:
         serializedVersion: 2
-        x: 164
-        y: 93
-        width: 971
-        height: 235
+        x: 38
+        y: 100
+        width: 845
+        height: 255
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +135,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a921c3ff8c3d54ea0800000000000000
-      internalID: -5889068077488008550
+      spriteID: 3ff3c2a19cc9caa80800000000000000
+      internalID: -8454210012939796493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LIVING + WORK ROOM-02_2
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 109
+        width: 434
+        height: 237
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2c564e1d87591190800000000000000
+      internalID: -7991259800182301651
       vertices: []
       indices: 
       edges: []
