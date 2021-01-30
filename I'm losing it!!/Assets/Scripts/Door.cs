@@ -10,9 +10,11 @@ public class Door : MonoBehaviour
 
     public bool startOpen = false;
     private bool isOpen;
+    private Player player;
 
     private void Start()
     {
+        player = FindObjectOfType<Player>();
         if (startOpen)
             OpenDoor();
         else
@@ -20,6 +22,14 @@ public class Door : MonoBehaviour
             CloseDoor();
         }
 
+    }
+
+    private void Update()
+    {
+        if (Vector2.Distance(transform.position, player.transform.position) < 1f && Input.GetKeyDown(KeyCode.E))
+        {
+            Interact();
+        }
     }
 
     public void Interact()
@@ -42,5 +52,17 @@ public class Door : MonoBehaviour
         opendoor.SetActive(true);
         closeddoor.SetActive(false);
         isOpen = true;
+        StartCoroutine(AutoClose());
+    }
+
+    private IEnumerator AutoClose()
+    {
+        yield return new WaitForSeconds(3f);
+        while (Vector2.Distance(transform.position, player.transform.position) < 3f)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        CloseDoor();
+        
     }
 }

@@ -1,25 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Dog : Obstacle
 {
-    public SpriteRenderer sprite;
+    public Image bar;
+
+    private void Start()
+    {
+        bar.fillAmount = 0;
+    }
+
     public override void Annoyed()
     {
         Debug.Log("Bark! Bark! Bark! Bark!");
-        sprite.color = Color.red;
+        bar.fillAmount = 1;
         base.Annoyed();
     }
     public override void Calm()
     {
-        sprite.color = Color.white;
+        bar.fillAmount = 0;
         base.Calm();
     }
     
-    public override void CoolDown()
+    public override void CalmDown()
     {
-        sprite.color = Color.Lerp(Color.white, Color.red, coolDownMeter);
-        base.CoolDown();
+        bar.fillAmount = calmDownMeter;
+        base.CalmDown();
     }
 }

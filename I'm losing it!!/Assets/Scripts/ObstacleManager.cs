@@ -14,6 +14,7 @@ public class ObstacleManager : MonoBehaviour
     public float minDistance;
     public Player player;
     [HideInInspector] public bool canInteract = true;
+    [HideInInspector] public bool gameOver;
 
     private Obstacle currentCoolDown;
 
@@ -31,7 +32,7 @@ public class ObstacleManager : MonoBehaviour
 
             foreach (var obstacle in GetObstaclesByState(Obstacle.State.Idle))
             {
-                if (GetObstaclesByNotState(Obstacle.State.Idle).Count < maxObstacles && Random.Range(0f, 1f) < obstacleProbability)
+                if (GetActiveObstacles().Count < maxObstacles && Random.Range(0f, 1f) < obstacleProbability)
                 {
                     obstacle.Annoyed();
                     break;
@@ -50,18 +51,24 @@ public class ObstacleManager : MonoBehaviour
         return obstacles.Where(obstacle => obstacle.state != state).ToList();
     }
 
+    private List<Obstacle> GetActiveObstacles()
+    {
+        return obstacles.Where(obstacle => obstacle.state == Obstacle.State.Annoying || obstacle.state == Obstacle.State.Calming).ToList();
+    }
+
     private void Update()
     {
+        if (gameOver) return;
         if (canInteract && Input.GetKey(KeyCode.E))
         {
-            if (currentCoolDown != null && currentCoolDown.coolDownMeter > 0)
+            if (currentCoolDown != null && currentCoolDown.calmDownMeter > 0)
             {
                 currentCoolDown.ShowPrompt();
-                currentCoolDown.CoolDown();
+                currentCoolDown.CalmDown();
             }
-            else if (GetObstaclesByNotState(Obstacle.State.Idle).Count > 0)
+            else if (GetActiveObstacles().Count > 0)
             {
-                currentCoolDown = GetClosestObstacle(GetObstaclesByNotState(Obstacle.State.Idle));
+                currentCoolDown = GetClosestObstacle(GetActiveObstacles());
             }
         }
         else if (Input.GetKeyUp(KeyCode.E))
@@ -71,13 +78,13 @@ public class ObstacleManager : MonoBehaviour
         }
         else
         {
-            var closestObstacle = GetClosestObstacle(GetObstaclesByNotState(Obstacle.State.Idle));
+            var closestObstacle = GetClosestObstacle(GetActiveObstacles());
             if (closestObstacle != null)
             {
                 closestObstacle.ShowPrompt();
             }
         }
-        player.ErodeSanity(GetObstaclesByNotState(Obstacle.State.Idle).Count);
+        player.ErodeSanity(GetActiveObstacles());
     }
 
     private Obstacle GetClosestObstacle(List<Obstacle> filteredObstacles)

@@ -3,42 +3,64 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.UI;
 
 public class DayNightLight : MonoBehaviour
 {
+    public GameManager gameManager;
     public Light2D globalLight;
     public Color dayColor;
     public Color nightColor;
     public float dayIntensity;
     public float nightIntensity;
     public float dayTime, nightTime;
+    public float cycleStep;
+    public float gameTime;
+    public Image timeBar;
+    private float timer;
     private float step;
     private bool stopCycle;
 
     private void Start()
     {
-        step = 0.01f;
+        step = cycleStep;
     }
 
     private void Update()
     {
-        Debug.Log(stopCycle);
         if (!stopCycle)
         {
             ChangeIntensity(step);
+            globalLight.color = Color.Lerp(nightColor, dayColor, globalLight.intensity);
+            if (globalLight.intensity >= dayIntensity)
+            {
+                globalLight.intensity = dayIntensity;
+                StartCoroutine(PeriodDelay(dayTime, -cycleStep));
+            }
+            else if (globalLight.intensity <= nightIntensity)
+            {
+                globalLight.intensity = nightIntensity;
+                StartCoroutine(PeriodDelay(nightTime, cycleStep));
+            }
         }
-        globalLight.color = Color.Lerp(nightColor, dayColor, globalLight.intensity);
-        if (globalLight.intensity >= dayIntensity)
+        
+        if (timer >= gameTime)
         {
-            StartCoroutine(PeriodDelay(dayTime, -0.01f));
+            gameManager.GameOver();
         }
-        else if (globalLight.intensity <= nightIntensity)
+        else
         {
-            
-            StartCoroutine(PeriodDelay(nightTime, 0.01f));
+            timer += Time.deltaTime;
+            timeBar.fillAmount = 1 - Map(timer, 0, gameTime, 0, 1, true);
         }
     }
 
+    public float Map(float x, float in_min, float in_max, float out_min, float out_max, bool clamp = false)
+    {
+        if (clamp) x = Math.Max(in_min, Math.Min(x, in_max));
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+    
     private IEnumerator PeriodDelay(float duration, float i)
     {
         stopCycle = true;
