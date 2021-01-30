@@ -7,8 +7,13 @@ using UnityEngine;
 
 public enum NPCState
 {
-    Moving, Working, Annoying, Idling, Follow
+    Moving,
+    Working,
+    Annoying,
+    Idling,
+    Follow
 }
+
 public class NPCController : MonoBehaviour
 {
     private CharacterMover characterMover;
@@ -17,21 +22,23 @@ public class NPCController : MonoBehaviour
     private CharacterController characterController;
 
     public PointsOfInterest[] pointsOfInterest;
-    public int currentPointIdx = -1;
+    public int currentPointIdx = 0;
     public PointsOfInterest target;
     public Transform followee;
+    public float poiDelay;
 
-    private Transform _transform;
+    internal Transform _transform;
     private Vector2 direction;
 
     public bool allowDebug = false;
     private Tween lastStretch;
-    
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         _transform = this.transform;
         characterMover = GetComponent<CharacterMover>();
+        SetState(NPCState.Moving);
     }
 
     private void Update()
@@ -43,6 +50,7 @@ public class NPCController : MonoBehaviour
                 BecomePlayable();
             }
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (allowDebug)
@@ -66,50 +74,50 @@ public class NPCController : MonoBehaviour
         this.state = state;
         switch (state)
         {
-                case NPCState.Idling:
-                    break;
-                case NPCState.Moving:
-                    MoveToNextPoint();
-                    break;
-                case NPCState.Working:
-                    break;
-                case NPCState.Annoying:
-                    break;
-                case NPCState.Follow:
-                    FollowPlayer();
-                    break;
+            case NPCState.Idling:
+                break;
+            case NPCState.Moving:
+                MoveToNextPoint();
+                break;
+            case NPCState.Working:
+                break;
+            case NPCState.Annoying:
+                break;
+            case NPCState.Follow:
+                FollowPlayer();
+                break;
         }
     }
 
     private void OnDone()
     {
-        if (pointsOfInterest[currentPointIdx].waypointOnly)
-        {
-            MoveToNextPoint();
-            return;
-        }
-
-        if (pointsOfInterest[currentPointIdx].taskTime > 0)
-        {
-            //start task
-            return;
-        }
-
-        if (pointsOfInterest[currentPointIdx].annoyingFactor > 0)
-        {
-            return;
-        }
+        if (state == NPCState.Follow) return;
+        SetState(NPCState.Idling);
+        characterMover.Move(Vector2.zero);
+        StartCoroutine(PoiDelay(poiDelay));
     }
-    
+
+    private IEnumerator PoiDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (state == NPCState.Follow) yield break;
+        SetState(NPCState.Moving);
+    }
+
     public void MoveToNextPoint()
     {
-        currentPointIdx = (currentPointIdx + 1) % pointsOfInterest.Length;
+        currentPointIdx++;
+        if (currentPointIdx == pointsOfInterest.Length)
+        {
+            currentPointIdx = 0;
+        }
+
         StartCoroutine(Move());
     }
 
     IEnumerator Move()
     {
-        while (Vector3.Distance(pointsOfInterest[currentPointIdx].transform.position,_transform.position) >= 0.1f)
+        while (Vector3.Distance(pointsOfInterest[currentPointIdx].transform.position, _transform.position) >= 0.1f)
         {
             direction = pointsOfInterest[currentPointIdx].transform.position - _transform.position;
             characterMover.Move(direction.normalized);
@@ -124,16 +132,15 @@ public class NPCController : MonoBehaviour
         this.target = target;
         SetState(NPCState.Follow);
     }
-    
+
     public void FollowPlayer()
     {
         followee = GameObject.FindObjectOfType<CinemachineVirtualCamera>().Follow;
         StartCoroutine(FollowToTarget());
     }
-    
+
     IEnumerator FollowToTarget()
     {
-        
         while (state == NPCState.Follow)
         {
             if (Vector3.Distance(_transform.position, target.transform.position) > 1)
@@ -160,15 +167,21 @@ public class NPCController : MonoBehaviour
                 }
                 else
                 {
+                    state = NPCState.Follow;
                     yield return null;
                 }
-
             }
         }
+    }
+
+    public void StartFollowing()
+    {
+        StartFollowingPlayerToTarget(target);
     }
 
     public void StopFollowing()
     {
         SetState(NPCState.Idling);
+        StartCoroutine(PoiDelay(poiDelay));
     }
 }

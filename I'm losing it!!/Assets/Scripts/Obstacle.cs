@@ -1,13 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class Obstacle : MonoBehaviour
 {
-    [HideInInspector] public float coolDownMeter = 0f;
-    public float coolDownStep = 0.1f;
+    [HideInInspector] public float calmDownMeter = 0f;
+    public float calmDownStep = 0.1f;
     public State state;
     public GameObject prompt;
+    public float coolDownTime;
+    public float damage;
 
-    private ObstacleManager _obstacleManager;
+    protected ObstacleManager _obstacleManager;
     
     private void Awake()
     {
@@ -17,34 +20,47 @@ public abstract class Obstacle : MonoBehaviour
     public enum State
     {
         Idle,
-        Cooldown,
+        Calming,
+        CoolDown,
         Annoying
     }
 
     public virtual void Annoyed()
     {
         state = State.Annoying;
-        coolDownMeter = 1f;
+        calmDownMeter = 1f;
     }
 
     public virtual void Calm()
     {
         state = State.Idle;
-        coolDownMeter = 0;
+        calmDownMeter = 0;
+    }
+
+    public virtual void CalmDown()
+    {
+        state = State.Calming;
+        calmDownMeter -= calmDownStep * Time.deltaTime;
+        if (calmDownMeter <= 0)
+        {
+            HidePrompt();
+            _obstacleManager.canInteract = false;
+            CoolDown();
+        }
     }
 
     public virtual void CoolDown()
     {
-        state = State.Cooldown;
-        coolDownMeter -= coolDownStep * Time.deltaTime;
-        if (coolDownMeter <= 0)
-        {
-            Calm();
-            HidePrompt();
-            _obstacleManager.canInteract = false;
-        }
+        StartCoroutine(CoolDownTimed());
     }
-
+    
+    private IEnumerator CoolDownTimed()
+    {
+        state = State.CoolDown;
+        yield return new WaitForSeconds(coolDownTime);
+        Calm();
+    }
+    
     public virtual void ShowPrompt()
     {
         prompt.SetActive(true);

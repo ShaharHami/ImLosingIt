@@ -15,7 +15,7 @@ public class CharacterMover : MonoBehaviour
     // ==== ANIMATION =====
     Animator animator;
     Vector2 lookDirection = new Vector2(1, 0);      
-    private void Start()
+    private void Awake()
     {
         // =========== MOVEMENT ==============
         rigidbody2d = GetComponent<Rigidbody2D>();
@@ -35,7 +35,6 @@ public class CharacterMover : MonoBehaviour
         currentInput = move;  
         
         // ============== ANIMATION =======================
-
         animator.SetFloat("Look X", lookDirection.x);
         animator.SetFloat("Look Y", lookDirection.y);
         animator.SetFloat("Speed", move.magnitude);
