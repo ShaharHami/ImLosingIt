@@ -32,7 +32,7 @@ public class ObstacleManager : MonoBehaviour
 
             foreach (var obstacle in GetObstaclesByState(Obstacle.State.Idle))
             {
-                if (GetActiveObstacles().Count < maxObstacles && Random.Range(0f, 1f) < obstacleProbability)
+                if (GetObstaclesByNotState(Obstacle.State.Idle).Count < maxObstacles && Random.Range(0f, 1f) < obstacleProbability)
                 {
                     obstacle.Annoyed();
                     break;

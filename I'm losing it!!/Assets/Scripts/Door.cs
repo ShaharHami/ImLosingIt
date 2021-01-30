@@ -26,9 +26,9 @@ public class Door : MonoBehaviour
 
     private void Update()
     {
-        if (Vector2.Distance(transform.position, player.transform.position) < 1f && Input.GetKeyDown(KeyCode.E))
+        if (Vector2.Distance(transform.position, player.transform.position) < 1f && !isOpen)
         {
-            Interact();
+            OpenDoor();
         }
     }
 

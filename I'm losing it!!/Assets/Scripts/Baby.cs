@@ -1,33 +1,41 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Baby : Obstacle
 {
-    public Image bar;
-    
-    private void Start()
-    {
-        bar.fillAmount = 0;
-    }
+    public SpriteRenderer graphic;
+    private bool audioStopped;
+    private Tween tween;
     public override void Annoyed()
     {
-        Debug.Log("Baby is not amused");
-        bar.fillAmount = 1;
+        audioStopped = false;
+        tween = graphic.DOColor(annoyedColor, 0.1f).SetLoops(-1, LoopType.Yoyo);
+        source.clip = annoySfx;
+        source.loop = true;
+        source.Play();
         base.Annoyed();
     }
-
-    public override void Calm()
-    {
-        bar.fillAmount = 0;
-        base.Calm();
-    }
-
     public override void CalmDown()
     {
-        bar.fillAmount = calmDownMeter;
+        if (!audioStopped)
+        {
+            source.clip = null;
+            source.loop = false;
+            source.Stop();
+            source.PlayOneShot(calmSfx);
+            audioStopped = true;
+        }
         base.CalmDown();
+    }
+    
+    public override void CoolDown()
+    {
+        tween.Kill();
+        graphic.color = Color.white;
+        base.CoolDown();
     }
 }

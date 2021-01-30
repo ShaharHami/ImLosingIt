@@ -11,7 +11,7 @@ public class CharacterMover : MonoBehaviour
     // =========== MOVEMENT ==============
     Rigidbody2D rigidbody2d;
     Vector2 currentInput;
-    
+
     // ==== ANIMATION =====
     Animator animator;
     Vector2 lookDirection = new Vector2(1, 0);      
@@ -19,8 +19,7 @@ public class CharacterMover : MonoBehaviour
     {
         // ==== ANIMATION =====
         animator = GetComponent<Animator>();
-        Debug.Log(animator == null);
-        
+
         // =========== MOVEMENT ==============
         rigidbody2d = GetComponent<Rigidbody2D>();
         
@@ -34,8 +33,7 @@ public class CharacterMover : MonoBehaviour
             lookDirection.Normalize();
         }
 
-        currentInput = move;  
-        
+        currentInput = move;
         // ============== ANIMATION =======================
         animator.SetFloat("Look X", lookDirection.x);
         animator.SetFloat("Look Y", lookDirection.y);

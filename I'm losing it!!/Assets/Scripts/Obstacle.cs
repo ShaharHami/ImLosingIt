@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Obstacle : MonoBehaviour
 {
@@ -9,12 +10,17 @@ public abstract class Obstacle : MonoBehaviour
     public GameObject prompt;
     public float coolDownTime;
     public float damage;
+    public Image bar;
+    public AudioSource source;
+    public AudioClip annoySfx, calmSfx;
+    public Color annoyedColor;
 
     protected ObstacleManager _obstacleManager;
     
     private void Awake()
     {
         _obstacleManager = FindObjectOfType<ObstacleManager>();
+        bar.fillAmount = 0;
     }
 
     public enum State
@@ -29,6 +35,7 @@ public abstract class Obstacle : MonoBehaviour
     {
         state = State.Annoying;
         calmDownMeter = 1f;
+        bar.fillAmount = 1;
     }
 
     public virtual void Calm()
@@ -41,8 +48,10 @@ public abstract class Obstacle : MonoBehaviour
     {
         state = State.Calming;
         calmDownMeter -= calmDownStep * Time.deltaTime;
+        bar.fillAmount = calmDownMeter;
         if (calmDownMeter <= 0)
         {
+            bar.fillAmount = 0;
             HidePrompt();
             _obstacleManager.canInteract = false;
             CoolDown();

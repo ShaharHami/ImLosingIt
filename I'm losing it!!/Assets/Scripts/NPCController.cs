@@ -144,9 +144,9 @@ public class NPCController : MonoBehaviour
     {
         while (state == NPCState.Follow)
         {
-            if (Vector3.Distance(_transform.position, target.transform.position) > 1)
+            if (Vector3.Distance(_transform.position, target.transform.position) > 2)
             {
-                if (Vector3.Distance(_transform.position, followee.position) > 1)
+                if (Vector3.Distance(_transform.position, followee.position) > 2)
                 {
                     direction = followee.position - _transform.position;
                     characterMover.Move(direction.normalized);
