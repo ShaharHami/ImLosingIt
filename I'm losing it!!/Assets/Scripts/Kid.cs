@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,7 @@ public class Kid : Obstacle
 {
     public NPCController npcController;
     private bool audioStopped;
+    private Tween tween;
     private void Start()
     {
         bar.fillAmount = 0;
@@ -13,6 +15,7 @@ public class Kid : Obstacle
     public override void Annoyed()
     {
         npcController.StartFollowing();
+        tween = npcController.target.GetComponent<SpriteRenderer>().DOColor(Color.green, 0.2f).SetLoops(-1, LoopType.Yoyo);
         audioStopped = false;
         source.clip = annoySfx;
         source.loop = true;
@@ -49,6 +52,8 @@ public class Kid : Obstacle
 
     public override void CoolDown()
     {
+        tween.Kill();
+        npcController.target.GetComponent<SpriteRenderer>().color = Color.white;
         npcController.StopFollowing();
         base.CoolDown();
     }

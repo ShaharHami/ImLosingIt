@@ -10,11 +10,13 @@ public class FMOD : MonoBehaviour
     public AudioClip[] ambiances;
     public AudioSource ambSource0;
     public AudioSource ambSource1;
+    public Player player;
 
     private bool firstSourcePlaying = true;
     public bool playAtStart = true;
     
     public int currentStressLevel = 0;
+    public int previousStressLevel = 0;
     public float crossFadeTime = 9;
     
     private void Start()
@@ -27,10 +29,36 @@ public class FMOD : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Minus))
+        previousStressLevel = currentStressLevel;
+        if (player.sanity > 0 && player.sanity < 25)
+        {
+            currentStressLevel = 0;
+        }
+        else if (player.sanity >= 25 && player.sanity < 50)
+        {
+            currentStressLevel = 1;
+        }
+        else if (player.sanity >= 50 && player.sanity < 75)
+        {
+            currentStressLevel = 2;
+        }
+        else if (player.sanity >= 75)
+        {
+            currentStressLevel = 3;
+        }
+
+        if (currentStressLevel < previousStressLevel)
+        {
             StressDown();
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        }
+        else if (currentStressLevel > previousStressLevel)
+        {
             StressUp();
+        }
+        // if (Input.GetKeyDown(KeyCode.Minus))
+        //     StressDown();
+        // if (Input.GetKeyDown(KeyCode.Alpha0))
+        //     StressUp();
     }
 
     public void StartPlaying()

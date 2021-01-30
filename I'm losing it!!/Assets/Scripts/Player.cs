@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI sanityLevel;
     public SpriteRenderer faceRenderer;
     public Sprite[] moods;
+    public FMOD fmod;
 
     public void ErodeSanity(List<Obstacle> obstacles)
     {
