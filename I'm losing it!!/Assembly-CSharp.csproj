@@ -82,7 +82,7 @@
     <Compile Include="Assets\2D tutorial\Scripts\NonPlayerCharacter.cs" />
     <Compile Include="Assets\2D tutorial\Scripts\HealthCollectible.cs" />
     <Compile Include="Assets\Scripts\Obstacle.cs" />
-    <Compile Include="Assets\mainmenu.cs" />
+    <Compile Include="Assets\Scripts\mainmenu.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
