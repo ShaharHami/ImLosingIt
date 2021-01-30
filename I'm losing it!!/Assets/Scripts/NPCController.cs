@@ -38,7 +38,8 @@ public class NPCController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         _transform = this.transform;
         characterMover = GetComponent<CharacterMover>();
-        SetState(NPCState.Moving);
+        SetState(NPCState.Idling);
+        StartCoroutine(PoiDelay(poiDelay));
     }
 
     private void Update()
@@ -181,7 +182,8 @@ public class NPCController : MonoBehaviour
 
     public void StopFollowing()
     {
+        StopAllCoroutines();
         SetState(NPCState.Idling);
-        StartCoroutine(PoiDelay(poiDelay));
+        StartCoroutine(PoiDelay(5f));
     }
 }

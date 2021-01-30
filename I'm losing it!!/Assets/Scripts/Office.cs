@@ -4,7 +4,6 @@ public class Office : MonoBehaviour
 {
     public GameObject prompt;
     public GameManager gameManager;
-    private float missionLength = 100f;
 
     private void OnTriggerStay2D(Collider2D other)
     {

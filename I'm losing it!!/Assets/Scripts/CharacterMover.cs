@@ -17,11 +17,13 @@ public class CharacterMover : MonoBehaviour
     Vector2 lookDirection = new Vector2(1, 0);      
     private void Awake()
     {
+        // ==== ANIMATION =====
+        animator = GetComponent<Animator>();
+        Debug.Log(animator == null);
+        
         // =========== MOVEMENT ==============
         rigidbody2d = GetComponent<Rigidbody2D>();
         
-        // ==== ANIMATION =====
-        animator = GetComponent<Animator>();
     }
 
     public void Move(Vector2 move)
