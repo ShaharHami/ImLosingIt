@@ -15,15 +15,46 @@ public class Player : MonoBehaviour
     public SpriteRenderer faceRenderer;
     public Sprite[] moods;
     public FMOD fmod;
+    private int stressLevel = 0;
+
+    private void Awake()
+    {
+        SetBGM();
+    }
 
     public void ErodeSanity(List<Obstacle> obstacles)
     {
         sanity -= ErosionAmount(obstacles) * baseErosionRate * Time.deltaTime;
         UpdateUI();
+        SetBGM();
         if (sanity <= 0)
         {
             sanity = 0;
             gameManager.GameOver();
+        }
+    }
+
+    private void SetBGM()
+    {
+        if (sanity >= 90 && stressLevel != 0)
+        {
+            stressLevel = 0;
+            fmod.ChangeToStressLevel(stressLevel);
+        }
+        else if (sanity < 90 && sanity >= 75 && stressLevel != 1)
+        {
+            stressLevel = 1;
+            fmod.ChangeToStressLevel(stressLevel);
+        }
+        else if (sanity < 75 && sanity >= 50 && stressLevel != 2)
+        {
+            stressLevel = 2;
+            fmod.ChangeToStressLevel(stressLevel);
+        }
+        else if (sanity < 50 && stressLevel != 3)
+        {
+            stressLevel = 3;
+            fmod.ChangeToStressLevel(stressLevel);
         }
     }
 
@@ -38,6 +69,7 @@ public class Player : MonoBehaviour
         {
             sanity += rate * Time.deltaTime;
             UpdateUI();
+            SetBGM();
         }
     }
 

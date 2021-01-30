@@ -29,36 +29,36 @@ public class FMOD : MonoBehaviour
 
     private void Update()
     {
-        previousStressLevel = currentStressLevel;
-        if (player.sanity > 0 && player.sanity < 25)
-        {
-            currentStressLevel = 0;
-        }
-        else if (player.sanity >= 25 && player.sanity < 50)
-        {
-            currentStressLevel = 1;
-        }
-        else if (player.sanity >= 50 && player.sanity < 75)
-        {
-            currentStressLevel = 2;
-        }
-        else if (player.sanity >= 75)
-        {
-            currentStressLevel = 3;
-        }
-
-        if (currentStressLevel < previousStressLevel)
-        {
-            StressDown();
-        }
-        else if (currentStressLevel > previousStressLevel)
-        {
-            StressUp();
-        }
-        // if (Input.GetKeyDown(KeyCode.Minus))
+        // previousStressLevel = currentStressLevel;
+        // if (player.sanity > 0 && player.sanity < 25)
+        // {
+        //     currentStressLevel = 3;
+        // }
+        // else if (player.sanity >= 25 && player.sanity < 50)
+        // {
+        //     currentStressLevel = 2;
+        // }
+        // else if (player.sanity >= 50 && player.sanity < 95)
+        // {
+        //     currentStressLevel = 1;
+        // }
+        // else if (player.sanity >= 95)
+        // {
+        //     currentStressLevel = 0;
+        // }
+        //
+        // if (currentStressLevel < previousStressLevel)
+        // {
         //     StressDown();
-        // if (Input.GetKeyDown(KeyCode.Alpha0))
+        // }
+        // else if (currentStressLevel > previousStressLevel)
+        // {
         //     StressUp();
+        // }
+        if (Input.GetKeyDown(KeyCode.Z))
+            StressDown();
+        if (Input.GetKeyDown(KeyCode.Q))
+            StressUp();
     }
 
     public void StartPlaying()
