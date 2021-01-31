@@ -51,11 +51,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
     
-    public void AdvanceMission()
+    public void AdvanceMission(float rate)
     {
         if (missionCompletion < missionLength)
         {
-            missionCompletion += missionCompletionRate * Time.deltaTime;
+            missionCompletion += rate * Time.deltaTime;
             missionBar.fillAmount = missionCompletion / missionLength;
             missionProgressText.text = $"Completed {missionCompletion:F1}/{missionLength}";
         }

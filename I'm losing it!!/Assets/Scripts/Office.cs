@@ -7,6 +7,7 @@ public class Office : MonoBehaviour
     public GameManager gameManager;
     public AudioSource source;
     public AudioClip clip;
+    public float completionRate;
     private ObstacleManager _obstacleManager;
 
     private void Awake()
@@ -24,7 +25,7 @@ public class Office : MonoBehaviour
             {
                 source.PlayOneShot(clip);
             }
-            gameManager.AdvanceMission();
+            gameManager.AdvanceMission(completionRate);
             prompt.SetActive(false);
         }
         else

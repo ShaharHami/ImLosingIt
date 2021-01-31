@@ -5,8 +5,9 @@ using UnityEngine.UI;
 public class Kid : Obstacle
 {
     public NPCController npcController;
+    public SpriteRenderer graphic;
     private bool audioStopped;
-    private Tween tween;
+    private Tween tween, tween1;
     private void Start()
     {
         bar.fillAmount = 0;
@@ -16,6 +17,7 @@ public class Kid : Obstacle
     {
         npcController.StartFollowing();
         tween = npcController.target.GetComponent<SpriteRenderer>().DOColor(Color.green, 0.2f).SetLoops(-1, LoopType.Yoyo);
+        tween1 = graphic.DOColor(annoyedColor, 0.1f).SetLoops(-1, LoopType.Yoyo);
         audioStopped = false;
         source.clip = annoySfx;
         source.loop = true;
@@ -53,6 +55,8 @@ public class Kid : Obstacle
     public override void CoolDown()
     {
         tween.Kill();
+        tween1.Kill();
+        graphic.color = Color.white;
         npcController.target.GetComponent<SpriteRenderer>().color = Color.white;
         npcController.StopFollowing();
         base.CoolDown();
