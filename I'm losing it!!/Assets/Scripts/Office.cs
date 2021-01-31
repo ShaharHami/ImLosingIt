@@ -16,7 +16,6 @@ public class Office : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (_obstacleManager.GetActiveObstacles().Count > 2) return;
         if (other.GetComponent<Player>() == null) return;
         prompt.SetActive(true);
         if (Input.GetKey(KeyCode.E))
