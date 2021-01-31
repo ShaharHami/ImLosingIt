@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        // animator.runtimeAnimatorController = PersistantData.Instance.brando ? dadController : momController;
+        animator.runtimeAnimatorController = PersistantData.Instance.brando ? dadController : momController;
         SetBGM();
     }
 
